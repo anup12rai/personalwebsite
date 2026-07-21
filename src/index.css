@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 5 7 13;
+  --bg-2: 10 14 26;
+  --bg-3: 14 19 33;
+  --surface: 17 23 41;
+  --surface-2: 24 31 54;
+  --text: 226 232 240;
+  --text-dim: 148 163 184;
+  --text-faint: 100 116 139;
+  --border: 56 189 248;
+  --grid: 56 189 248;
+}
+
+.light {
+  --bg: 226 233 247;
+  --bg-2: 214 226 246;
+  --bg-3: 236 242 252;
+  --surface: 255 255 255;
+  --surface-2: 244 248 255;
+  --text: 15 23 42;
+  --text-dim: 71 85 105;
+  --text-faint: 100 116 139;
+  --border: 59 130 246;
+  --grid: 99 102 241;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@layer utilities {
+  .text-themed {
+    color: rgb(var(--text));
+  }
+  .text-dim {
+    color: rgb(var(--text-dim));
+  }
+  .text-faint {
+    color: rgb(var(--text-faint));
+  }
+  .bg-surface {
+    background-color: rgb(var(--surface));
+  }
+  .bg-surface-2 {
+    background-color: rgb(var(--surface-2));
+  }
+  .border-themed {
+    border-color: rgb(var(--border) / 0.18);
+  }
+  .glass {
+    background: rgb(var(--surface) / 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgb(var(--border) / 0.16);
+  }
+  .glass-strong {
+    background: rgb(var(--surface) / 0.82);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgb(var(--border) / 0.22);
+  }
+  .aurora {
+    background:
+      radial-gradient(55% 75% at 18% 8%, rgba(59, 130, 246, 0.22), transparent 60%),
+      radial-gradient(48% 68% at 92% 18%, rgba(168, 85, 247, 0.2), transparent 60%),
+      radial-gradient(60% 80% at 72% 96%, rgba(34, 211, 238, 0.18), transparent 60%),
+      rgb(var(--bg));
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgb(var(--grid) / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--grid) / 0.07) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 85%);
+  }
+  .glow-cyan {
+    box-shadow: 0 0 22px rgba(34, 211, 238, 0.35), 0 0 46px rgba(34, 211, 238, 0.14);
+  }
+  .glow-purple {
+    box-shadow: 0 0 22px rgba(168, 85, 247, 0.35), 0 0 56px rgba(168, 85, 247, 0.14);
+  }
+  .glow-blue {
+    box-shadow: 0 0 22px rgba(59, 130, 246, 0.35), 0 0 46px rgba(59, 130, 246, 0.14);
+  }
+  .text-glow-cyan {
+    text-shadow: 0 0 14px rgba(34, 211, 238, 0.55);
+  }
+  .text-glow-purple {
+    text-shadow: 0 0 14px rgba(168, 85, 247, 0.55);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, #22d3ee, #3b82f6, #a855f7, #d946ef, #22d3ee);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 8s linear infinite;
+  }
+  .neon-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(var(--border) / 0.5), transparent);
+  }
+  .scanline {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 28%;
+    background: linear-gradient(transparent, rgba(34, 211, 238, 0.1), transparent);
+    animation: scan 5s linear infinite;
+    pointer-events: none;
+  }
+  .mask-fade-r {
+    mask-image: linear-gradient(90deg, black 80%, transparent);
+  }
+}
+
+@keyframes gradientShift {
+  to {
+    background-position: 220% center;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-120%);
+  }
+  100% {
+    transform: translateY(420%);
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.caret::after {
+  content: '';
+  display: inline-block;
+  width: 0.6ch;
+  height: 1.05em;
+  margin-left: 2px;
+  transform: translateY(2px);
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+  animation: caret 1s steps(2) infinite;
+}
